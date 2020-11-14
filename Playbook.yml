@@ -11,6 +11,17 @@
         - php7.2
         - php7.2-fpm
 
+    - name: Copy rsync config file
+      copy:
+        src: rsyncd.conf
+        dest: /etc/rsyncd.conf
+        mode: '0777'
+
+    - name: Restart rsync
+        ansible.builtin.service:
+          name: rsync
+          state: restarted
+
     - name: Synchronization nginx config files
       ansible.posix.synchronize:
         src: Nginx_conf/
