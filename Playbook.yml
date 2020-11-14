@@ -32,7 +32,7 @@
       - php7.2-fpm
 
   handlers:
-    - name: Restart nginx
+    - name: Reload nginx
       service:
         name: nginx
         state: reloaded
