@@ -18,9 +18,9 @@
         mode: '0777'
 
     - name: Restart rsync
-        ansible.builtin.service:
-          name: rsync
-          state: restarted
+      ansible.builtin.service:
+        name: rsync
+        state: restarted
 
     - name: Synchronization nginx config files
       ansible.posix.synchronize:
@@ -30,19 +30,18 @@
           - Restart nginx
 
     - name: Synchronization start page
-        ansible.posix.synchronize:
-          src: site/
-          dest: /var/www/html/
-          notify:
-            - Restart nginx
+      ansible.posix.synchronize:
+        src: site/
+        dest: /var/www/html/
+
 
     - name: Ensure services is running
-        ansible.builtin.service:
-          name: name={{item}}
-          state: started
-          with_items:
-            - nginx
-            - php7.2-fpm
+      ansible.builtin.service:
+        name: name={{item}}
+        state: started
+        with_items:
+          - nginx
+          - php7.2-fpm
 
      handlers:
        - name: Restart nginx
