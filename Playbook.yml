@@ -7,33 +7,21 @@
     apt: name={{item}} state=present update_cache=yes
     with_items:
       - nginx
-      - rsync
       - php7.2
       - php7.2-fpm
 
-  - name: Copy rsync config file
+  - name: Copy nginx config files
     copy:
-      src: rsyncd.conf
-      dest: /etc/rsyncd.conf
+      src: Nginx_conf/default
+      dest: /etc/nginx/sites-available/default
       mode: '0777'
-
-  - name: Restart rsync
-    service:
-      name: rsync
-      state: restarted
-
-  - name: Synchronization nginx config files
-    synchronize:
-      src: Nginx_conf/
-      dest: /etc/nginx/sites-available/
     notify:
       - Restart nginx
 
-  - name: Synchronization start page
+  - name: Copy start page
     synchronize:
-      src: site/
-      dest: /var/www/html/
-
+      src: site/index.php
+      dest: /var/www/html/index.php
 
   - name: Ensure services is running
     service:
