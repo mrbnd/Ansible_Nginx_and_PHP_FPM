@@ -1,0 +1,40 @@
+- name: Nginx and Php-FPM config
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Ensure packages is present
+      apt: name={{item}} state=present update_cache=yes
+      with_items:
+        - nginx
+        - rsync
+        - php7.2
+        - php7.2-fpm
+
+    - name: Synchronization nginx config files
+      ansible.posix.synchronize:
+        src: Nginx_conf/
+        dest: /etc/nginx/sites-available/
+        notify:
+          - Restart nginx
+
+    - name: Synchronization start page
+        ansible.posix.synchronize:
+          src: site/
+          dest: /var/www/html/
+          notify:
+            - Restart nginx
+
+    - name: Ensure services is running
+        ansible.builtin.service:
+          name: name={{item}}
+          state: started
+          with_items:
+            - nginx
+            - php7.2-fpm
+
+     handlers:
+       - name: Restart nginx
+         ansible.builtin.service:
+           name: nginx
+           state: restarted
