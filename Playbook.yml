@@ -39,9 +39,9 @@
     service:
       name: name={{item}}
       state: started
-      with_items:
-        - nginx
-        - php7.2-fpm
+    with_items:
+      - nginx
+      - php7.2-fpm
 
   handlers:
     - name: Restart nginx
