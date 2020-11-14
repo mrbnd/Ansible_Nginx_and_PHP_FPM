@@ -2,7 +2,6 @@
   hosts: web
   become: yes
 
-
   tasks:
     - name: Ensure packages is present
       apt: name={{item}} state=present update_cache=yes
