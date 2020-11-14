@@ -37,7 +37,7 @@
 
   - name: Ensure services is running
     service:
-      name: name={{item}}
+      name: {{item}}
       state: started
     with_items:
       - nginx
