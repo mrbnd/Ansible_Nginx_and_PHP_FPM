@@ -26,8 +26,8 @@
     synchronize:
       src: Nginx_conf/
       dest: /etc/nginx/sites-available/
-      notify:
-        - Restart nginx
+    notify:
+      - Restart nginx
 
   - name: Synchronization start page
     synchronize:
