@@ -43,8 +43,8 @@
           - nginx
           - php7.2-fpm
 
-     handlers:
-       - name: Restart nginx
-         ansible.builtin.service:
-           name: nginx
-           state: restarted
+    handlers:
+      - name: Restart nginx
+        ansible.builtin.service:
+          name: nginx
+          state: restarted
