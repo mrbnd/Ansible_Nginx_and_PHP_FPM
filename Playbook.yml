@@ -16,7 +16,7 @@
       dest: /etc/nginx/sites-available/default
       mode: '0777'
     notify:
-      - Restart nginx
+      - Reload nginx
 
   - name: Copy start page
     synchronize:
